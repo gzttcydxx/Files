@@ -29,10 +29,10 @@ jobs:
 
       - name: Publish (Windows x64)
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" ^
-            -c "${{ env.CONFIGURATION }}" ^
-            -r "${{ env.RUNTIME_ID }}" ^
-            -p:Platform="${{ env.PLATFORM }}" ^
+          dotnet publish "${{ env.PROJECT_PATH }}" `
+            -c "${{ env.CONFIGURATION }}" `
+            -r "${{ env.RUNTIME_ID }}" `
+            -p:Platform="${{ env.PLATFORM }}" `
             --no-restore
 
       - name: Upload EXE publish output
