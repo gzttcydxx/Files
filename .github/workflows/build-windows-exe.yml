@@ -27,6 +27,13 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore "${{ env.PROJECT_PATH }}" --verbosity minimal
 
+      - name: Build Files.App.Server (generate WinMD)
+        run: |
+          dotnet build "src/Files.App.Server/Files.App.Server.csproj" `
+            -c "${{ env.CONFIGURATION }}" `
+            -r "${{ env.RUNTIME_ID }}" `
+            -p:Platform="${{ env.PLATFORM }}"
+
       - name: Publish (Windows x64)
         run: |
           dotnet publish "${{ env.PROJECT_PATH }}" `
