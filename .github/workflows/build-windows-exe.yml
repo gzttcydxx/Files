@@ -24,6 +24,16 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+
+      - name: Use Windows SDK Preview
+        shell: cmd
+        run: |
+          for /f %%a in ('dir /b /a:d %localappdata%\Microsoft\VisualStudio\17*') do echo UsePreviews=True>%localappdata%\Microsoft\VisualStudio\%%a\sdk.txt
+
       - name: Restore dependencies
         run: dotnet restore "${{ env.PROJECT_PATH }}" --verbosity minimal
 
