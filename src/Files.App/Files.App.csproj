@@ -141,5 +141,17 @@
         <AdditionalFiles Include="Strings\en-US\Resources.resw" />
     </ItemGroup>
 
-  <Import Project="..\Satori.targets" Condition=" '$(Platform)' != 'x86' " />
+    <Target Name="BuildFilesAppServerWinmd" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+        <PropertyGroup>
+            <FilesAppServerBuildProperties>Configuration=$(Configuration);Platform=$(Platform)</FilesAppServerBuildProperties>
+            <FilesAppServerBuildProperties Condition="'$(RuntimeIdentifier)' != ''">$(FilesAppServerBuildProperties);RuntimeIdentifier=$(RuntimeIdentifier)</FilesAppServerBuildProperties>
+        </PropertyGroup>
+
+        <MSBuild
+            Projects="..\Files.App.Server\Files.App.Server.csproj"
+            Targets="Build"
+            Properties="$(FilesAppServerBuildProperties)" />
+    </Target>
+
+    <Import Project="..\Satori.targets" Condition=" '$(Platform)' != 'x86' " />
 </Project>
